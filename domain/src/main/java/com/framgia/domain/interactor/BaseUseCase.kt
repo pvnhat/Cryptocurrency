@@ -14,10 +14,10 @@ abstract class BaseUseCase<T, Params>() {
   private lateinit var mCompositeDisposable: CompositeDisposable
 
   constructor(threadExecutor: ThreadExecutor,
-      postExecutorThread: PostExecutorThread, compositeDisposable: CompositeDisposable) : this() {
+      postExecutorThread: PostExecutorThread) : this() {
     mThreadExecutor = threadExecutor
     mPostExecutorThread = postExecutorThread
-    mCompositeDisposable = compositeDisposable
+    mCompositeDisposable = CompositeDisposable()
   }
 
   abstract fun buildUseCaseObservable(params: Params): Observable<T>
