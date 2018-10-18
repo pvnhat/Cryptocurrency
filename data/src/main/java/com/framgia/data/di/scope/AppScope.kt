@@ -1,4 +1,4 @@
-package com.framgia.cryptocurrency.di.scope
+package com.framgia.data.di.scope
 
 import javax.inject.Scope
 

@@ -7,33 +7,30 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 abstract class BaseUseCase<T, Params>() {
-  private lateinit var mThreadExecutor: ThreadExecutor
-  private lateinit var mPostExecutorThread: PostExecutorThread
-  private lateinit var mCompositeDisposable: CompositeDisposable
+  @Inject
+  lateinit var mThreadExecutor: ThreadExecutor
+  @Inject
+  lateinit var mPostExecutorThread: PostExecutorThread
+  var mCompositeDisposable = CompositeDisposable()
 
-  constructor(threadExecutor: ThreadExecutor,
-      postExecutorThread: PostExecutorThread) : this() {
-    mThreadExecutor = threadExecutor
-    mPostExecutorThread = postExecutorThread
-    mCompositeDisposable = CompositeDisposable()
-  }
 
   abstract fun buildUseCaseObservable(params: Params): Observable<T>
 
-  public fun execute(observer: DisposableObserver<T>, params: Params) {
+  fun execute(observer: DisposableObserver<T>, params: Params) {
     val observable: Observable<T> = this.buildUseCaseObservable(params).subscribeOn(
         Schedulers.from(mThreadExecutor))
         .observeOn(mPostExecutorThread.getScheduler())
     addDisposable(observable.subscribeWith(observer))
   }
 
-  public fun addDisposable(disposable: Disposable) {
+  fun addDisposable(disposable: Disposable) {
     mCompositeDisposable.add(disposable)
   }
 
-  public fun onDispose() {
+  fun onDispose() {
     if (!mCompositeDisposable.isDisposed) {
       mCompositeDisposable.dispose()
     }

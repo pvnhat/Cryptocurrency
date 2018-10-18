@@ -1,6 +1,7 @@
 package com.framgia.data.source.remote
 
 import com.framgia.data.entity.model.MoreCoinData
+import com.framgia.data.entity.model.MoreCoinDetailData
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -8,15 +9,16 @@ import retrofit2.http.Query
 interface Api {
 
   @GET("cryptocurrency/map?listing_status=active&limit=20")
-  fun getActiveCoin(@Query("start") startNum: Int): Observable<MoreCoinData<Any>>
+  fun getActiveCoin(@Query("start") startNum: Int): Observable<MoreCoinData>
 
   @GET("cryptocurrency/listings/latest?limit=20")
-  fun getLastestList(@Query("start") startNum: Int): Observable<MoreCoinData<Any>>
+  fun getLastestList(@Query(
+      "start") startNum: Int): Observable<MoreCoinDetailData>
 
   @GET("cryptocurrency/info")
-  fun getInfoCoin(@Query("id") coinId: Int): Observable<MoreCoinData<Any>>
+  fun getInfoCoin(@Query("id") symbol: String): Observable<MoreCoinData>
 
   @GET("cryptocurrency/quotes/latest")
-  fun getCoinDetail(@Query("id") coinId: Int): Observable<MoreCoinData<Any>>
+  fun getCoinDetail(@Query("symbol") coinId: String): Observable<MoreCoinData>
 
 }

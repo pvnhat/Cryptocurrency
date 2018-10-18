@@ -1,83 +1,61 @@
 package com.framgia.data.source.remote
 
-import android.app.Application
-import com.framgia.cryptocurrency.di.scope.AppScope
 import com.framgia.data.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import dagger.internal.DoubleCheck.lazy
-import okhttp3.Cache
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
-class NetworkModule(application: Application) {
+class NetworkModule {
 
   companion object {
     private val REQUEST_TIMEOUT: Long = 5000
     private val CONNECT_TIMEOUT: Long = 10000
     private val BASE_LINK: String = "https://pro-api.coinmarketcap.com/v1/"
-    private val API_KEY: String =  "X-CMC_PRO_API_KEY"
-    private val API_VALUE: String =  BuildConfig.COINMARKETCAP_API_KEY
-    private lateinit var sRetrofit: Retrofit
+    private val API_KEY: String = "X-CMC_PRO_API_KEY"
+    private val API_VALUE: String = BuildConfig.COINMARKETCAP_API_KEY
   }
 
-  var mApplication: Application
-
-  init {
-    mApplication = application
-  }
-
-  @AppScope
+  @Singleton
   @Provides
-  fun provideApplication(): Application {
-    return mApplication
-  }
-
-  @AppScope
-  @Provides
-  fun provideOkHttpCache(application: Application): Cache {
-    return Cache(application.cacheDir, 10 * 10 * 1024)
-  }
-
-  @AppScope
-  @Provides
-  fun provideOkHttpClient(cache: Cache): OkHttpClient {
-    return OkHttpClient.Builder().cache(cache)
+  fun provideOkHttpClient(): OkHttpClient {
+    val httpLoggingInterceptor = HttpLoggingInterceptor()
+    httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+    return OkHttpClient.Builder()
         .readTimeout(REQUEST_TIMEOUT, TimeUnit.MILLISECONDS)
         .writeTimeout(REQUEST_TIMEOUT, TimeUnit.MILLISECONDS)
         .connectTimeout(CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
         .retryOnConnectionFailure(true)
-        .addInterceptor(Interceptor { chain ->
-          chain.proceed(chain.request().newBuilder().addHeader(API_KEY,
-              API_VALUE).build())
-        })
+        .addInterceptor(httpLoggingInterceptor)
+        .addInterceptor { chain ->
+          chain.proceed(chain.request().newBuilder().addHeader("X-CMC_PRO_API_KEY",
+              "e40dcab4-f106-47af-89ef-f320a79c4ece").build())
+        }
         .build()
   }
 
-  @AppScope
+  @Singleton
   @Provides
   fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-    if (true) {
-      var gson: Gson = GsonBuilder().setLenient().create()
-      sRetrofit = Retrofit.Builder().baseUrl(BASE_LINK)
-          .client(okHttpClient)
-          .addConverterFactory(GsonConverterFactory.create(gson))
-          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-          .build()
-    }
-    return sRetrofit
+    val gson: Gson = GsonBuilder().setLenient().create()
+    return Retrofit.Builder().baseUrl(BASE_LINK)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
   }
 
-  @AppScope
+  @Singleton
   @Provides
-  fun provideApi(retrofit: Retrofit): Api {
+  internal fun provideApi(retrofit: Retrofit): Api {
     return retrofit.create(Api::class.java)
   }
 
