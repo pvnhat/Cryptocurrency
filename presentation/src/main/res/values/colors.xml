@@ -8,4 +8,7 @@
     <color name="color_ampber_700">#ffaa00</color>
     <color name="color_green_100">#0dff00</color>
     <color name="color_red_100">#fd0d00</color>
+    <color name="color_blue_200">#a43d426c</color>
+    <color name="color_cyan_ancent_200">#00ffee</color>
+    <color name="color_blue_400">#00b0ff</color>
 </resources>

@@ -2,7 +2,6 @@ package com.framgia.cryptocurrency.screen.detail
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
 import com.framgia.domain.entity.MoreCoin
 import com.framgia.domain.interactor.GetCoinDetail
 import io.reactivex.observers.DisposableObserver
@@ -15,13 +14,8 @@ class DetailViewModel @Inject constructor(private val getCoinDetail: GetCoinDeta
         getCoinDetail.execute(GetCoiDetail(), symbol)
     }
 
-    fun getMoreCoinBySymbol(): MutableLiveData<MoreCoin> {
-        return moreCoinDetail
-    }
-
     inner class GetCoiDetail : DisposableObserver<MoreCoin>() {
         override fun onComplete() {
-            println("GET MORECOIN")
         }
 
         override fun onNext(t: MoreCoin) {
@@ -29,7 +23,6 @@ class DetailViewModel @Inject constructor(private val getCoinDetail: GetCoinDeta
         }
 
         override fun onError(e: Throwable) {
-            Log.d("ERROR NE: ", e.message)
         }
 
     }
