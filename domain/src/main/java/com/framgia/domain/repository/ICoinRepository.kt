@@ -2,6 +2,7 @@ package com.framgia.domain.repository
 
 import com.framgia.domain.entity.MoreCoin
 import com.framgia.domain.entity.MoreCoinDetail
+import com.framgia.domain.entity.MoreCoinInfo
 import io.reactivex.Observable
 
 interface ICoinRepository {
@@ -9,8 +10,8 @@ interface ICoinRepository {
 //
 
     fun getLastestList(startNum: Int): Observable<MoreCoinDetail>
-    //
-//  fun getInfoCoin(coinId: Int): Observable<MoreCoin<CoinDetailResult>>
-//
+
+    fun getInfoCoin(symbol: String): Observable<MoreCoinInfo>
+
     fun getCoinDetail(symbol: String): Observable<MoreCoin>
 }

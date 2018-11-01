@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import com.framgia.cryptocurrency.di.ViewModelFactory
 import com.framgia.cryptocurrency.di.ViewModelKey
 import com.framgia.cryptocurrency.screen.detail.DetailViewModel
+import com.framgia.cryptocurrency.screen.detail.InFoViewModel
 import com.framgia.cryptocurrency.screen.main.MainViewModel
 import dagger.Binds
 import dagger.Module
@@ -22,6 +23,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
     internal abstract fun bindDetailViewModel(viewModel: DetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(InFoViewModel::class)
+    internal abstract fun bindInFoViewModel(viewModel: InFoViewModel): ViewModel
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

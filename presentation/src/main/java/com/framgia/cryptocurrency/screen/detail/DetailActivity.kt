@@ -33,5 +33,4 @@ class DetailActivity : BaseActivity() {
         tab_detail.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewpager_detail))
     }
 
-
 }
