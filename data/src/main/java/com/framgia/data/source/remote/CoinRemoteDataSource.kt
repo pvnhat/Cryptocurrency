@@ -3,6 +3,7 @@ package com.framgia.data.source.remote
 import com.framgia.data.entity.model.CoinDetailResultData
 import com.framgia.data.entity.model.MoreCoinData
 import com.framgia.data.entity.model.MoreCoinDetailData
+import com.framgia.data.entity.model.MoreCoinInfoData
 import com.framgia.data.source.CoinDataSource
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class CoinRemoteDataSource @Inject constructor(
     return mApi.getLastestList(startNum)
   }
 
-  override fun getInfoCoin(symbol: String): Observable<MoreCoinData> {
+  override fun getInfoCoin(symbol: String): Observable<MoreCoinInfoData> {
     return mApi.getInfoCoin(symbol)
   }
 
