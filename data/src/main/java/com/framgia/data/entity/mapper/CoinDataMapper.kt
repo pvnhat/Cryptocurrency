@@ -1,6 +1,6 @@
 package com.framgia.data.entity.mapper
 
-import com.framgia.cryptocurrency.di.scope.AppScope
+import com.framgia.data.di.scope.AppScope
 import com.framgia.data.entity.model.CoinData
 import com.framgia.domain.entity.Coin
 import javax.inject.Inject
@@ -23,6 +23,4 @@ class CoinDataMapper @Inject constructor() {
     coin.lastHistoricalData = coinData.lastHistoricalData
     return coin
   }
-
-
 }

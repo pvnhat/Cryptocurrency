@@ -7,4 +7,3 @@ class Status(
     var errorMessage: Any?,
     var elapsed: Int?,
     var creditCount: Int?)
-

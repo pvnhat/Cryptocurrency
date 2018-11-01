@@ -4,12 +4,11 @@ import com.framgia.data.entity.model.CoinDetailResultData
 import com.framgia.domain.entity.CoinDetailResult
 import javax.inject.Inject
 
-class CoinDetailMapper @Inject constructor(private val coinDetailMapper: CoinDetailMapper,
-    private val quoteMapper: QuoteMapper) {
+class CoinDetailMapper @Inject constructor(private val quoteMapper: QuoteMapper) {
 
 
   fun transform(coinDetailResultData: CoinDetailResultData?): CoinDetailResult? {
-    var coinDetailResult: CoinDetailResult? = null
+    var coinDetailResult: CoinDetailResult?
     if (coinDetailResultData == null) {
       return null
     }
@@ -27,5 +26,18 @@ class CoinDetailMapper @Inject constructor(private val coinDetailMapper: CoinDet
     coinDetailResult.lastUpdated = coinDetailResultData.lastUpdated
     coinDetailResult.quote = quoteMapper.transform(coinDetailResultData.quote)
     return coinDetailResult
+  }
+
+
+  fun transform(list: List<CoinDetailResultData>?): List<CoinDetailResult>? {
+    if (list == null) {
+      return null
+    }
+    var listCoinDetailResult = ArrayList<CoinDetailResult>()
+    for (coinData in list) {
+      val coin: CoinDetailResult = this.transform(coinData)!!
+      listCoinDetailResult.add(coin)
+    }
+    return listCoinDetailResult
   }
 }

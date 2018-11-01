@@ -8,7 +8,6 @@ class CoinDetailResult {
   var name: String? = null
   var symbol: String? = null
   var slug: String? = null
-
   var circulatingSupply: Double? = null
   var totalSupply: Double? = null
   var maxSupply: Any? = null
