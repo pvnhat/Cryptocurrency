@@ -9,8 +9,10 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import com.framgia.cryptocurrency.R
 import com.framgia.cryptocurrency.base.BaseActivity
@@ -23,7 +25,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, OnItemClick, SwipeRefreshLayout.OnRefreshListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, OnItemClick,
+        SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -35,6 +38,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private var mScrollOutItem: Int = 0
     private var mIsScrolling: Boolean = false
     private var mStartNum = Constants.NUM_20
+    private lateinit var mSearchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -162,6 +166,30 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onFavoriteClicked(symbol: String) {
         Toast.makeText(this, "Add Favorite: " + symbol, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = getMenuInflater()
+        menuInflater.inflate(R.menu.search_menu, menu)
+        val menuItem = menu!!.findItem(R.id.search_view_menu)
+        mSearchView = menuItem.actionView as SearchView
+        mSearchView.setOnQueryTextListener(this)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onQueryTextSubmit(keyword: String?): Boolean {
+        mSearchView.setQuery("", false)
+        mSearchView.isIconified = true
+        if (keyword == null || keyword == "") {
+            Toast.makeText(this, getString(R.string.enterkey), Toast.LENGTH_SHORT).show()
+        } else {
+            startActivity(DetailActivity.newInstance(this, keyword.toUpperCase()))
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        return false
     }
 }
 
