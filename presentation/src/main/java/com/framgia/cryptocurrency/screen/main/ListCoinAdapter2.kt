@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.framgia.cryptocurrency.R
-import com.framgia.cryptocurrency.utils.Common
+import com.framgia.cryptocurrency.utils.Constants
 import com.framgia.domain.entity.CoinDetailResult
 import kotlinx.android.synthetic.main.list_coin_row.view.*
 import java.text.SimpleDateFormat
@@ -24,6 +24,12 @@ class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>()
     fun onUpdateAdapter(list: MutableList<CoinDetailResult>) {
         mList = list
         notifyDataSetChanged()
+    }
+
+    fun onLoadMore(list: MutableList<CoinDetailResult>) {
+            mList!!.addAll(list)
+            notifyDataSetChanged()
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -76,7 +82,7 @@ class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>()
                     RequestOptions().centerCrop().placeholder(R.drawable.ic_loading).error(
                             R.drawable.ic_empty)
             ).load(
-                    StringBuilder(Common.IMAGE_LINK).append(symbol.toLowerCase()).append(
+                    StringBuilder(Constants.IMAGE_LINK).append(symbol.toLowerCase()).append(
                             ".png").toString()).into(imageView)
         }
 
