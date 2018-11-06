@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Created by GianhTran on 01/11/2018.
  * tran.nguyen.song.gianh@framgia.com
  */
-class InFoViewModel @Inject constructor(private val getCoinInfo: GetCoinInfo) : ViewModel() {
+class InfoViewModel @Inject constructor(private val getCoinInfo: GetCoinInfo) : ViewModel() {
     var moreCoinInfo = MutableLiveData<MoreCoinInfo>()
 
     fun getCoiInfoBySymbol(symbol: String) {
@@ -24,7 +24,6 @@ class InFoViewModel @Inject constructor(private val getCoinInfo: GetCoinInfo) : 
 
     inner class GetCoinInfoObserver : DisposableObserver<MoreCoinInfo>() {
         override fun onComplete() {
-            println("CoinInfo: ok")
         }
 
         override fun onNext(t: MoreCoinInfo) {
@@ -32,7 +31,6 @@ class InFoViewModel @Inject constructor(private val getCoinInfo: GetCoinInfo) : 
         }
 
         override fun onError(e: Throwable) {
-            println("CoinInfo ERROR: " + e.message)
         }
 
     }

@@ -20,13 +20,13 @@ import java.util.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, OnItemClick {
-    override fun onItemClicked(coinId: Int) {
-        Toast.makeText(this, "Item click: " + coinId, Toast.LENGTH_SHORT).show()
-        startActivity(DetailActivity.newInstance(this))
+    override fun onItemClicked(symbol: String) {
+        Toast.makeText(this, "Item click: " + symbol, Toast.LENGTH_SHORT).show()
+        startActivity(DetailActivity.newInstance(this, symbol))
     }
 
-    override fun onFavoriteClicked(coinId: Int) {
-        Toast.makeText(this, "Add Favorite: " + coinId, Toast.LENGTH_SHORT).show()
+    override fun onFavoriteClicked(symbol: String) {
+        Toast.makeText(this, "Add Favorite: " + symbol, Toast.LENGTH_SHORT).show()
     }
 
     private lateinit var mToggle: ActionBarDrawerToggle

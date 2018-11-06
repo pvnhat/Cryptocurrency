@@ -44,7 +44,7 @@ class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>()
                                val onItemClick: OnItemClick) : RecyclerView.ViewHolder(itemRow), View.OnClickListener {
 
         override fun onClick(v: View?) {
-            onItemClick.onFavoriteClicked(mList!![adapterPosition].id!!)
+            onItemClick.onFavoriteClicked(mList!![adapterPosition].symbol!!)
         }
 
         fun setData() {
@@ -59,7 +59,7 @@ class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>()
 
             itemRow.image_favorite.setOnClickListener(this)
             itemRow.setOnClickListener {
-                onItemClick.onItemClicked(mList!![adapterPosition].id!!)
+                onItemClick.onItemClicked(mList!![adapterPosition].symbol!!)
             }
         }
 
