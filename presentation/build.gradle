@@ -64,6 +64,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
+    //auto resize for defferent device
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
     // architecture components
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "android.arch.lifecycle:viewmodel:1.1.1"

@@ -11,13 +11,14 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.framgia.cryptocurrency.R
-import com.framgia.cryptocurrency.utils.Constants
+import com.framgia.cryptocurrency.utils.Const
 import com.framgia.domain.entity.CoinDetailResult
 import kotlinx.android.synthetic.main.list_coin_row.view.*
 import java.text.SimpleDateFormat
 
-class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>() {
-    lateinit var onItemClick: OnItemClick
+// them 2 event click
+class ListCoinAdapter2(val itemClickListener: (String) -> Unit, val favouriteClick: (String) -> Unit)
+    : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>() {
 
     var mList: MutableList<CoinDetailResult>? = null
 
@@ -27,15 +28,15 @@ class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>()
     }
 
     fun onLoadMore(list: MutableList<CoinDetailResult>) {
-            mList!!.addAll(list)
-            notifyDataSetChanged()
+        mList!!.addAll(list)
+        notifyDataSetChanged()
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_coin_row, parent,
                 false)
-        return MainViewHolder(itemView, onItemClick)
+        return MainViewHolder(itemView, itemClickListener, favouriteClick)
     }
 
     override fun getItemCount(): Int {
@@ -46,12 +47,10 @@ class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>()
         holder.setData()
     }
 
+    //truyen xuong holder , String la kieu tra ve khi call back
     inner class MainViewHolder(var itemRow: View,
-                               val onItemClick: OnItemClick) : RecyclerView.ViewHolder(itemRow), View.OnClickListener {
-
-        override fun onClick(v: View?) {
-            onItemClick.onFavoriteClicked(mList!![adapterPosition].symbol!!)
-        }
+                               val itemClick: (String) -> Unit, val favouriteClick: (String) -> Unit)
+        : RecyclerView.ViewHolder(itemRow) {
 
         fun setData() {
             loadImage(itemRow.image_coin, mList!![adapterPosition].symbol.toString().trim())
@@ -63,9 +62,11 @@ class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>()
             }
             itemRow.text_time.text = formatTime(mList!![adapterPosition].lastUpdated.toString())
 
-            itemRow.image_favorite.setOnClickListener(this)
+            itemRow.image_favorite.setOnClickListener {
+                favouriteClick(mList!![adapterPosition].symbol ?: "")
+            }
             itemRow.setOnClickListener {
-                onItemClick.onItemClicked(mList!![adapterPosition].symbol!!)
+                itemClick(mList!![adapterPosition].symbol ?: "")
             }
         }
 
@@ -82,7 +83,7 @@ class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>()
                     RequestOptions().centerCrop().placeholder(R.drawable.ic_loading).error(
                             R.drawable.ic_empty)
             ).load(
-                    StringBuilder(Constants.IMAGE_LINK).append(symbol.toLowerCase()).append(
+                    StringBuilder(Const.IMAGE_LINK).append(symbol.toLowerCase()).append(
                             ".png").toString()).into(imageView)
         }
 
@@ -99,5 +100,4 @@ class ListCoinAdapter2 : RecyclerView.Adapter<ListCoinAdapter2.MainViewHolder>()
             }
         }
     }
-
 }

@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 
-class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+class ViewPagerAdapter(fragmentManager: FragmentManager, private var symbol: String) : FragmentStatePagerAdapter(fragmentManager) {
     companion object {
         private val DETAIL_FRAGMENT_TITLE = "Detail"
         private val INFO_FRAGMENT_TITLE = "Information Site"
@@ -13,8 +13,8 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAda
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-            0 -> fragment = DetailFragment()
-            1 -> fragment = InfoFragment()
+            0 -> fragment = DetailFragment.newInstance(symbol)
+            1 -> fragment = InfoFragment.newInstance(symbol)
         }
         return fragment!!
     }

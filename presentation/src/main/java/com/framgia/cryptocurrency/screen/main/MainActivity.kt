@@ -18,26 +18,27 @@ import com.framgia.cryptocurrency.R
 import com.framgia.cryptocurrency.base.BaseActivity
 import com.framgia.cryptocurrency.di.ViewModelFactory
 import com.framgia.cryptocurrency.screen.detail.DetailActivity
-import com.framgia.cryptocurrency.utils.Constants
+import com.framgia.cryptocurrency.utils.Const
 import com.framgia.domain.entity.CoinDetailResult
 import com.framgia.domain.entity.MoreCoinDetail
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, OnItemClick,
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
         SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var mToggle: ActionBarDrawerToggle
     lateinit var viewModel: MainViewModel
-    private var mListCoinAdapter: ListCoinAdapter2? = null
+    private lateinit var mListCoinAdapter: ListCoinAdapter2
+
     private var mCurrentItem: Int = 0
     private var mTotalItem: Int = 0
     private var mScrollOutItem: Int = 0
     private var mIsScrolling: Boolean = false
-    private var mStartNum = Constants.NUM_20
+    private var mStartNum = Const.NUM_20
     private lateinit var mSearchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +50,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
     private fun initData() {
+        initClick()
         registerLiveDataListenner()
         loadMoreRecycler()
         onSwipRefresh()
-        mListCoinAdapter = ListCoinAdapter2()
-        mListCoinAdapter?.onItemClick = this
         recycler_coin_list.adapter = mListCoinAdapter
+    }
+
+    private fun initClick() {
+        mListCoinAdapter = ListCoinAdapter2({ symbol ->
+            startActivity(DetailActivity.newInstance(this, symbol))
+        }, {
+            Toast.makeText(this, "Add Favorite: " + it, Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun onSwipRefresh() {
@@ -69,7 +77,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 mTotalItem = recyclerView.layoutManager.itemCount
                 mScrollOutItem = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 if (!mIsScrolling && mCurrentItem + mScrollOutItem == mTotalItem) {
-                    mStartNum += Constants.NUM_20
+                    mStartNum += Const.NUM_20
                     mIsScrolling = false
                     progress_load_more.visibility = View.VISIBLE
                     viewModel.getLatestCoin(mStartNum)
@@ -81,7 +89,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     private fun registerLiveDataListenner() {
         if (viewModel.moreCoinDetail.value == null) {
-            viewModel.getLatestCoin(Constants.NUM_20)
+            viewModel.getLatestCoin(Const.NUM_20)
             viewModel.getMoreCoiDetail().observe(this, Observer<MoreCoinDetail> { t: MoreCoinDetail? ->
                 if (t != null) {
                     initView(t)
@@ -112,7 +120,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun onLoadDataToList(moreCoinDetail: MoreCoinDetail) {
-        if (mStartNum == Constants.NUM_20) {
+        if (mStartNum == Const.NUM_20) {
             mListCoinAdapter?.onUpdateAdapter(moreCoinDetail.listCoin as MutableList<CoinDetailResult>)
 
         } else {
@@ -158,14 +166,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onRefresh() {
         registerLiveDataListenner()
         swipe_layout.isRefreshing = false
-    }
-
-    override fun onItemClicked(symbol: String) {
-        startActivity(DetailActivity.newInstance(this, symbol))
-    }
-
-    override fun onFavoriteClicked(symbol: String) {
-        Toast.makeText(this, "Add Favorite: " + symbol, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
