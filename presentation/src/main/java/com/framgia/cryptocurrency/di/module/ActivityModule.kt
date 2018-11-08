@@ -10,6 +10,6 @@ abstract class ActivityModule {
     @ContributesAndroidInjector // voi moi Activity duoc tao ra thi them dong nay
     abstract fun provideMainActivity(): MainActivity
 
-    @ContributesAndroidInjector // voi moi Activity duoc tao ra thi them dong nay
+    @ContributesAndroidInjector(modules = [FragmentModule::class]) // voi moi Activity duoc tao ra thi them dong nay
     abstract fun provideDetailActivity(): DetailActivity
 }

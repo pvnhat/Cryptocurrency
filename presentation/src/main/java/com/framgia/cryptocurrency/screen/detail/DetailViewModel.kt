@@ -7,7 +7,8 @@ import com.framgia.domain.interactor.GetCoinDetail
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
-class DetailViewModel @Inject constructor(private val getCoinDetail: GetCoinDetail) : ViewModel() {
+class DetailViewModel @Inject constructor(val getCoinDetail: GetCoinDetail): ViewModel() {
+
     var moreCoinDetail = MutableLiveData<MoreCoin>()
 
     fun getCoiDetaiBySymbol(symbol: String) {

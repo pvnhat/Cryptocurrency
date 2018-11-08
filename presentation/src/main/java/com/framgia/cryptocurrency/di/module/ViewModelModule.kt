@@ -9,6 +9,7 @@ import com.framgia.cryptocurrency.screen.detail.InfoViewModel
 import com.framgia.cryptocurrency.screen.main.MainViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.multibindings.IntoMap
 
 // co view model nao moi them provide vao day
@@ -19,10 +20,10 @@ internal abstract class ViewModelModule {
     @ViewModelKey(MainViewModel::class)
     internal abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
 
-    @Binds
+    /*@Binds
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
-    internal abstract fun bindDetailViewModel(viewModel: DetailViewModel): ViewModel
+    internal abstract fun bindDetailViewModel(viewModel: DetailViewModel): ViewModel*/
 
     @Binds
     @IntoMap

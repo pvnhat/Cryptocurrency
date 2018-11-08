@@ -2,8 +2,8 @@ package com.framgia.cryptocurrency.di
 
 import com.framgia.cryptocurrency.App
 import com.framgia.cryptocurrency.di.module.ActivityModule
+import com.framgia.cryptocurrency.di.module.AnyModule
 import com.framgia.cryptocurrency.di.module.ApplicationModule
-import com.framgia.cryptocurrency.di.module.FragmentModule
 import com.framgia.cryptocurrency.di.module.ViewModelModule
 import com.framgia.data.di.scope.AppScope
 import com.framgia.data.source.remote.NetworkModule
@@ -19,7 +19,8 @@ import javax.inject.Singleton
     (ViewModelModule::class),
     (NetworkModule::class),
     (ApplicationModule::class),
-    (FragmentModule::class)])
+    (AnyModule::class)])
+
 interface AppComponent : AndroidInjector<App> {
     @Component.Builder
     abstract class Builder : AndroidInjector.Builder<App>()
