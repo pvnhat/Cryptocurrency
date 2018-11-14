@@ -12,4 +12,5 @@ package com.framgia.cryptocurrency.utils
 object Const {
     val IMAGE_LINK: String = "https://res.cloudinary.com/dxi90ksom/image/upload/"
     val NUM_20: Int = 20
+    val DATABASE_NAME = "SuggestKeyword.dp"
 }

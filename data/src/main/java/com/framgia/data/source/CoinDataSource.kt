@@ -1,8 +1,10 @@
 package com.framgia.data.source
 
+import com.framgia.data.entity.model.CoinSuggestKeywordData
 import com.framgia.data.entity.model.MoreCoinData
 import com.framgia.data.entity.model.MoreCoinDetailData
 import com.framgia.data.entity.model.MoreCoinInfoData
+import io.reactivex.Flowable
 import io.reactivex.Observable
 
 interface CoinDataSource {
@@ -16,5 +18,9 @@ interface CoinDataSource {
         fun getCoinDetail(symbol: String): Observable<MoreCoinData>
     }
 
-    interface LocalSource
+    interface LocalSource {
+        fun saveSymbolToDB(symbolList: List<CoinSuggestKeywordData>)
+
+        fun getSuggesFromDB(symbol: String): Flowable<List<CoinSuggestKeywordData>>
+    }
 }

@@ -20,11 +20,12 @@ import com.framgia.cryptocurrency.di.ViewModelFactory
 import com.framgia.cryptocurrency.screen.detail.DetailActivity
 import com.framgia.cryptocurrency.utils.Const
 import com.framgia.domain.entity.CoinDetailResult
+import com.framgia.domain.entity.CoinSuggestKeyword
 import com.framgia.domain.entity.MoreCoinDetail
-import com.framgia.domain.interactor.TestScope
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
         SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
@@ -52,7 +53,48 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         println(testScope)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        initView()
         initData()
+
+        testSaveToDB()
+    }
+
+
+    private fun testSaveToDB() {
+        val list = ArrayList<CoinSuggestKeyword>()
+        list.add(CoinSuggestKeyword("a"))
+        list.add(CoinSuggestKeyword("a1"))
+        list.add(CoinSuggestKeyword("a2"))
+        list.add(CoinSuggestKeyword("b"))
+        list.add(CoinSuggestKeyword("c"))
+        viewModel.saveSuggestKeyword(list)
+
+        viewModel.getSuggestKeyword("a")
+        viewModel.suggestKeywordList.observe(this,
+                Observer<List<CoinSuggestKeyword>> { t: List<CoinSuggestKeyword>? ->
+                    for (i in t!!) {
+                        println("ROOM: " + i.symbol)
+                    }
+                })
+
+        viewModel.errorLive.observe(this,
+                Observer<String> { t: String? ->
+                    Toast.makeText(this, "Something are wrong : $t", Toast.LENGTH_SHORT).show()
+                })
+
+
+    }
+
+    private fun initView() {
+        text_date.text = Calendar.getInstance().time.toString()
+        mToggle = ActionBarDrawerToggle(
+                this, drawer_layout, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(mToggle)
+        mToggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        nav_view.setNavigationItemSelectedListener(this)
     }
 
 
@@ -99,31 +141,21 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             viewModel.getLatestCoin(Const.NUM_20)
             viewModel.getMoreCoiDetail().observe(this, Observer<MoreCoinDetail> { t: MoreCoinDetail? ->
                 if (t != null) {
-                    initView(t)
+                    setView(t)
                 }
             })
         } else {
-            initView(viewModel.moreCoinDetail.value!!)
+            setView(viewModel.moreCoinDetail.value!!)
         }
     }
 
-    private fun initView(moreCoinDetail: MoreCoinDetail) {
+    private fun setView(moreCoinDetail: MoreCoinDetail) {
         progress_load.visibility = View.GONE
         if (progress_load_more.visibility != View.GONE) {
             progress_load_more.visibility = View.GONE
         }
 
         onLoadDataToList(moreCoinDetail)
-
-        text_date.text = Calendar.getInstance().time.toString()
-        mToggle = ActionBarDrawerToggle(
-                this, drawer_layout, R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(mToggle)
-        mToggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-        nav_view.setNavigationItemSelectedListener(this)
     }
 
     private fun onLoadDataToList(moreCoinDetail: MoreCoinDetail) {
