@@ -4,12 +4,10 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.framgia.cryptocurrency.di.ViewModelFactory
 import com.framgia.cryptocurrency.di.ViewModelKey
-import com.framgia.cryptocurrency.screen.detail.DetailViewModel
 import com.framgia.cryptocurrency.screen.detail.InfoViewModel
 import com.framgia.cryptocurrency.screen.main.MainViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
 // co view model nao moi them provide vao day

@@ -11,8 +11,9 @@ import com.framgia.domain.entity.MoreCoinInfo
 import com.framgia.domain.repository.ICoinRepository
 import io.reactivex.Observable
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@AppScope
+@Singleton
 class CoinRepository @Inject constructor(
         private val mCoinRemoteDataSource: CoinRemoteDataSource,
         private val mMoreCoinInfoMapper: MoreCoinInfoMapper,

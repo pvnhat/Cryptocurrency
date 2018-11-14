@@ -21,6 +21,7 @@ import com.framgia.cryptocurrency.screen.detail.DetailActivity
 import com.framgia.cryptocurrency.utils.Const
 import com.framgia.domain.entity.CoinDetailResult
 import com.framgia.domain.entity.MoreCoinDetail
+import com.framgia.domain.interactor.TestScope
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import javax.inject.Inject
@@ -41,9 +42,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private var mStartNum = Const.NUM_20
     private lateinit var mSearchView: SearchView
 
+    @Inject
+    lateinit var testScope: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        println(testScope)
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
         initData()
     }

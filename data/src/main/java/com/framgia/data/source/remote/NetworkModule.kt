@@ -36,8 +36,8 @@ class NetworkModule {
                 .retryOnConnectionFailure(true)
                 .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor { chain ->
-                    chain.proceed(chain.request().newBuilder().addHeader("X-CMC_PRO_API_KEY",
-                            "e40dcab4-f106-47af-89ef-f320a79c4ece").build())
+                    chain.proceed(chain.request().newBuilder().addHeader(API_KEY,
+                            API_VALUE).build())
                 }
                 .build()
     }

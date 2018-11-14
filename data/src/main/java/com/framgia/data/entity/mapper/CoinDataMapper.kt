@@ -4,8 +4,9 @@ import com.framgia.data.di.scope.AppScope
 import com.framgia.data.entity.model.CoinData
 import com.framgia.domain.entity.Coin
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@AppScope
+@Singleton
 class CoinDataMapper @Inject constructor() {
 
   fun transform(coinData: CoinData?): Coin? { //co the tra ve null
