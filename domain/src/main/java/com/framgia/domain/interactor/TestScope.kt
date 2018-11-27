@@ -4,8 +4,7 @@ import com.framgia.domain.scope.CustomScope
 import javax.inject.Inject
 
 /**
- * Created by GianhTran on 14/11/2018.
- * tran.nguyen.song.gianh@framgia.com
+ * Created by VanNhat on 14/11/2018.
  */
 @CustomScope
 class TestScope @Inject constructor() {

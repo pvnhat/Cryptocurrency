@@ -1,8 +1,7 @@
 package com.framgia.cryptocurrency.utils
 
 /**
- * Created by GianhTran on 07/11/2018.
- * tran.nguyen.song.gianh@framgia.com
+ * Created by VanNhat on 07/11/2018.
  */
 
 /**
@@ -10,7 +9,10 @@ package com.framgia.cryptocurrency.utils
  * ex : Const.INT
  */
 object Const {
-    val IMAGE_LINK: String = "https://res.cloudinary.com/dxi90ksom/image/upload/"
-    val NUM_20: Int = 20
-    val DATABASE_NAME = "SuggestKeyword.dp"
+    const val IMAGE_LINK: String = "https://res.cloudinary.com/dxi90ksom/image/upload/"
+    const val NUM_20: Int = 20
+    const val DATABASE_NAME = "SuggestKeyword.dp"
+    const val NUM_24h = 24
+    const val NUM_7d = 7
+    const val NUM_30d = 30
 }

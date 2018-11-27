@@ -6,10 +6,7 @@ import com.framgia.domain.executor.ThreadExecutor
 import com.framgia.domain.repository.ICoinRepository
 import javax.inject.Inject
 
-/**
- * Created by GianhTran on 16/11/2018.
- * tran.nguyen.song.gianh@framgia.com
- */
+
 class SaveSuggestKeyword @Inject constructor(private val iCoinRepository: ICoinRepository,
                                              val threadExecutor: ThreadExecutor,
                                              val threadPostExecutorThread: PostExecutorThread) {

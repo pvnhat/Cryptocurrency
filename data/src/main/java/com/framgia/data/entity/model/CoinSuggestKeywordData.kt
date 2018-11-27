@@ -5,8 +5,7 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
 /**
- * Created by GianhTran on 14/11/2018.
- * tran.nguyen.song.gianh@framgia.com
+ * Created by VanNhat on 14/11/2018.
  */
 @Entity(tableName = "CoinSuggestKeywordData")
 data class CoinSuggestKeywordData(

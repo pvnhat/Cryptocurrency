@@ -11,7 +11,7 @@ class DetailActivity : BaseActivity() {
 
     companion object {
 
-        private val INTENT_KEY_SYMBOL = "symbol"
+        private const val INTENT_KEY_SYMBOL = "symbol"
 
         fun newInstance(context: Context, symbol: String): Intent {
             val intent = Intent(context, DetailActivity::class.java)
@@ -31,11 +31,12 @@ class DetailActivity : BaseActivity() {
 
     private fun getData() {
         val dataString = intent.getStringExtra(INTENT_KEY_SYMBOL)
-        supportActionBar!!.setTitle(dataString)
+        supportActionBar?.title = dataString
         mSymbol = dataString
     }
 
     private fun initView() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val fragmentManager = supportFragmentManager
         val viewPagerAdapter = ViewPagerAdapter(fragmentManager, mSymbol ?: "")
         viewpager_detail.adapter = viewPagerAdapter
@@ -45,5 +46,10 @@ class DetailActivity : BaseActivity() {
         // using when set event when click tab item
         //tab_detail.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewpager_detail))
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

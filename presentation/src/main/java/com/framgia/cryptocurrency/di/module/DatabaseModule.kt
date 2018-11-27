@@ -9,10 +9,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Created by GianhTran on 16/11/2018.
- * tran.nguyen.song.gianh@framgia.com
- */
+
 
 @Module
 class DatabaseModule {

@@ -1,44 +1,34 @@
-package com.framgia.cryptocurrency.screen.main
+package com.framgia.cryptocurrency.screen.active
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import com.framgia.cryptocurrency.R
 import com.framgia.cryptocurrency.base.BaseActivity
 import com.framgia.cryptocurrency.di.ViewModelFactory
-import com.framgia.cryptocurrency.screen.active.ActiveCoinActivity
 import com.framgia.cryptocurrency.screen.detail.DetailActivity
+import com.framgia.cryptocurrency.screen.main.MainViewModel
 import com.framgia.cryptocurrency.utils.Const
 import com.framgia.domain.entity.CoinDetailResult
-import com.framgia.domain.entity.CoinSuggestKeyword
 import com.framgia.domain.entity.MoreCoinDetail
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import kotlinx.android.synthetic.main.activity_active_coin.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
-    SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
+class ActiveCoinActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
 
   @Inject
   lateinit var viewModelFactory: ViewModelFactory
-  private lateinit var mToggle: ActionBarDrawerToggle
   lateinit var viewModel: MainViewModel
-  private lateinit var mListCoinAdapter: ListCoinAdapter2
-
+  private lateinit var mListCoinAdapter: ActiveCoinAdapter
   private var mCurrentItem: Int = 0
   private var mTotalItem: Int = 0
   private var mScrollOutItem: Int = 0
@@ -46,64 +36,25 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
   private var mStartNum = Const.NUM_20
   private lateinit var mSearchView: SearchView
 
-  @Inject
-  lateinit var testScope: String
-
   companion object {
     fun newInstance(context: Context): Intent {
-      return Intent(context, MainActivity::class.java)
+      return Intent(context, ActiveCoinActivity::class.java)
     }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-
-    println(testScope)
-
+    setContentView(R.layout.activity_active_coin)
     viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
     initView()
     initData()
 
-    testSaveToDB()
-  }
-
-
-  private fun testSaveToDB() {
-    val list = ArrayList<CoinSuggestKeyword>()
-    list.add(CoinSuggestKeyword("a"))
-    list.add(CoinSuggestKeyword("a1"))
-    list.add(CoinSuggestKeyword("a2"))
-    list.add(CoinSuggestKeyword("b"))
-    list.add(CoinSuggestKeyword("c"))
-    viewModel.saveSuggestKeyword(list)
-
-    viewModel.getSuggestKeyword("a")
-    viewModel.suggestKeywordList.observe(this,
-        Observer<List<CoinSuggestKeyword>> { t: List<CoinSuggestKeyword>? ->
-          for (i in t!!) {
-            println("ROOM: " + i.symbol)
-          }
-        })
-
-    viewModel.errorLive.observe(this,
-        Observer<String> { t: String? ->
-          Toast.makeText(this, "Something are wrong : $t", Toast.LENGTH_SHORT).show()
-        })
-
-
   }
 
   private fun initView() {
-    text_date.text = Calendar.getInstance().time.toString()
-    mToggle = ActionBarDrawerToggle(
-        this, drawer_layout, R.string.navigation_drawer_open,
-        R.string.navigation_drawer_close)
-    drawer_layout.addDrawerListener(mToggle)
-    mToggle.syncState()
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     supportActionBar?.setHomeButtonEnabled(true)
-    nav_view.setNavigationItemSelectedListener(this)
+    recycler_coin_list.layoutManager = GridLayoutManager(this, 3)
   }
 
 
@@ -116,7 +67,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
   }
 
   private fun initClick() {
-    mListCoinAdapter = ListCoinAdapter2({ symbol ->
+    mListCoinAdapter = ActiveCoinAdapter({ symbol ->
       startActivity(DetailActivity.newInstance(this, symbol))
     }, {
       Toast.makeText(this, "Add Favorite: " + it, Toast.LENGTH_SHORT).show()
@@ -125,6 +76,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
   private fun onSwipRefresh() {
     swipe_layout.setOnRefreshListener(this)
+  }
+
+  override fun onSupportNavigateUp(): Boolean {
+    onBackPressed()
+    return super.onSupportNavigateUp()
   }
 
   private fun loadMoreRecycler() {
@@ -144,6 +100,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
       }
     })
   }
+
 
   private fun registerLiveDataListenner() {
     if (viewModel.moreCoinDetail.value == null) {
@@ -169,60 +126,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
   private fun onLoadDataToList(moreCoinDetail: MoreCoinDetail) {
     if (mStartNum == Const.NUM_20) {
-      mListCoinAdapter?.onUpdateAdapter(moreCoinDetail.listCoin as MutableList<CoinDetailResult>)
+      mListCoinAdapter.onUpdateAdapter(moreCoinDetail.listCoin as MutableList<CoinDetailResult>)
 
     } else {
-      mListCoinAdapter?.onLoadMore(moreCoinDetail.listCoin as MutableList<CoinDetailResult>)
+      mListCoinAdapter.onLoadMore(moreCoinDetail.listCoin as MutableList<CoinDetailResult>)
     }
-  }
-
-  override fun onBackPressed() {
-    if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-      drawer_layout.closeDrawer(GravityCompat.START)
-    } else {
-      super.onBackPressed()
-    }
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    if (mToggle.onOptionsItemSelected(item)) {
-      return true
-    }
-    return super.onOptionsItemSelected(item)
-  }
-
-  override fun onNavigationItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.nav_home -> {
-
-      }
-      R.id.nav_active -> {
-        startActivity(ActiveCoinActivity.newInstance(this))
-      }
-      R.id.nav_favourite -> {
-
-      }
-      R.id.nav_tool -> {
-
-      }
-    }
-
-    drawer_layout.closeDrawer(GravityCompat.START)
-    return true
   }
 
   override fun onRefresh() {
     registerLiveDataListenner()
     swipe_layout.isRefreshing = false
-  }
-
-  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    val menuInflater = getMenuInflater()
-    menuInflater.inflate(R.menu.search_menu, menu)
-    val menuItem = menu!!.findItem(R.id.search_view_menu)
-    mSearchView = menuItem.actionView as SearchView
-    mSearchView.setOnQueryTextListener(this)
-    return super.onCreateOptionsMenu(menu)
   }
 
   override fun onQueryTextSubmit(keyword: String?): Boolean {
@@ -240,4 +153,3 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     return false
   }
 }
-

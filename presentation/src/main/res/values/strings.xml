@@ -44,4 +44,8 @@
     <string name="home">Home</string>
     <string name="active_coin">Active coin</string>
     <string name="favourite">Favourite</string>
+    <string name="a_month">A month</string>
+    <string name="_7_days">7 days</string>
+    <string name="_24_hours">24 hours</string>
+    <string name="splash_screen">Splash screen</string>
 </resources>

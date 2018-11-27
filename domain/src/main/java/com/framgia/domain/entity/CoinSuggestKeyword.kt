@@ -1,7 +1,6 @@
 package com.framgia.domain.entity
 
 /**
- * Created by GianhTran on 14/11/2018.
- * tran.nguyen.song.gianh@framgia.com
+ * Created by Van Nhat on 14/11/2018.
  */
 class CoinSuggestKeyword(val symbol: String)

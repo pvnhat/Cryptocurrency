@@ -1,4 +1,4 @@
-package com.framgia.cryptocurrency.screen.detail
+package com.framgia.cryptocurrency.screen.detail.info
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer

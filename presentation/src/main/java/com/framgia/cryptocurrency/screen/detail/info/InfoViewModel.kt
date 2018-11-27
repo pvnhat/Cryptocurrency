@@ -1,4 +1,4 @@
-package com.framgia.cryptocurrency.screen.detail
+package com.framgia.cryptocurrency.screen.detail.info
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -7,10 +7,7 @@ import com.framgia.domain.interactor.GetCoinInfo
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
-/**
- * Created by GianhTran on 01/11/2018.
- * tran.nguyen.song.gianh@framgia.com
- */
+
 class InfoViewModel @Inject constructor(private val getCoinInfo: GetCoinInfo) : ViewModel() {
     var moreCoinInfo = MutableLiveData<MoreCoinInfo>()
 

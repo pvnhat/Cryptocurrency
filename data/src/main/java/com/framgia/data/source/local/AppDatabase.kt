@@ -7,8 +7,7 @@ import com.framgia.data.entity.model.CoinSuggestKeywordData
 import com.framgia.data.source.local.dao.CoinSuggestDao
 
 /**
- * Created by GianhTran on 14/11/2018.
- * tran.nguyen.song.gianh@framgia.com
+ * Created by VanNhat on 14/11/2018.
  */
 @Database(entities = [CoinSuggestKeywordData::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)

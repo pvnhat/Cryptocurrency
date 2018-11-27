@@ -8,8 +8,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
- * Created by GianhTran on 01/11/2018.
- * tran.nguyen.song.gianh@framgia.com
+ * Created by Van Nhat on 01/11/2018.
  */
 
 // inject constructor co tham so se co 2 nv : la provide chinh no voi () , va goi cac tham so da duoc provide truoc do

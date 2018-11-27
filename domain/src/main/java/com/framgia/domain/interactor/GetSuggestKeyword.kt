@@ -9,14 +9,13 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
- * Created by GianhTran on 16/11/2018.
- * tran.nguyen.song.gianh@framgia.com
+ * Created by VanNhat on 16/11/2018.
  */
 class GetSuggestKeyword @Inject constructor(private val iCoinRepository: ICoinRepository,
-                                            val threadExecutor: ThreadExecutor,
-                                            val threadPostExecutorThread: PostExecutorThread) {
+                                            private val threadExecutor: ThreadExecutor,
+                                            private val threadPostExecutorThread: PostExecutorThread) {
 
-    fun buildUseCaseObservable(symbol: String): Flowable<List<CoinSuggestKeyword>> {
+    private fun buildUseCaseObservable(symbol: String): Flowable<List<CoinSuggestKeyword>> {
         return iCoinRepository.getKeywordFromDB(symbol)
 
     }

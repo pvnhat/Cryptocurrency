@@ -5,8 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 /**
- * Created by GianhTran on 14/11/2018.
- * tran.nguyen.song.gianh@framgia.com
+ * Created by VanNhat on 14/11/2018.
  */
 class Converter {
     @TypeConverter

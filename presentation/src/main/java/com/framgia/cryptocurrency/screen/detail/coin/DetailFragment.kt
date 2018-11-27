@@ -1,4 +1,4 @@
-package com.framgia.cryptocurrency.screen.detail
+package com.framgia.cryptocurrency.screen.detail.coin
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
@@ -22,7 +22,7 @@ class DetailFragment : BaseFragment() {
 
     companion object {
 
-        val BUNDLE_SYMBOL_KEY = "SYMBOL"
+        const val BUNDLE_SYMBOL_KEY = "SYMBOL"
 
         fun newInstance(symbol: String): DetailFragment {
             val detailFragment = DetailFragment()
@@ -34,7 +34,7 @@ class DetailFragment : BaseFragment() {
     }
 
     private var mSymbol: String? = null
-    lateinit var viewModel: DetailViewModel
+    private lateinit var viewModel: DetailViewModel
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -79,9 +79,9 @@ class DetailFragment : BaseFragment() {
     private fun setView(moreCoin: MoreCoin) {
         try {
             progress_load.visibility = View.GONE
-            val coinDetailResult = moreCoin.data!!.values.toTypedArray().first()
-            coinDetailResult.apply {
-                text_symbol.text = symbol.toString()
+            val coinDetailResult = moreCoin.data?.values?.toTypedArray()?.first()
+            coinDetailResult?.apply {
+                text_symbol.text = symbol
                 text_name.text = name.toString()
                 text_circulating.text = circulatingSupply.toString()
                 text_total.text = totalSupply.toString()
