@@ -9,8 +9,7 @@ import javax.inject.Inject
 
 class GetCoinDetail @Inject constructor(private val iCoinRepository: ICoinRepository,
                                         threadExecutor: ThreadExecutor,
-                                        threadPostExecutorThread:
-                                        PostExecutorThread) :
+                                        threadPostExecutorThread: PostExecutorThread) :
         BaseUseCase<MoreCoin, String>() {
     override fun buildUseCaseObservable(params: String): Observable<MoreCoin> {
         return iCoinRepository.getCoinDetail(params)

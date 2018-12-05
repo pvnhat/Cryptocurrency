@@ -12,5 +12,8 @@ class App : DaggerApplication() {
     }
     override fun applicationInjector(): AndroidInjector<out App> {
         return DaggerAppComponent.builder().create(this) // Dagger...nt duoc lay tu AppComponent
+
+        //return DaggerAppComponent.builder().application(this).build() // Dagger...nt duoc lay tu AppComponent
+
     }
 }

@@ -1,4 +1,4 @@
-package com.framgia.cryptocurrency.screen.detail
+package com.framgia.cryptocurrency.screen.detail.info
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
@@ -22,30 +22,46 @@ import kotlinx.android.synthetic.main.fragment_info.*
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
-class InfoFragment : BaseFragment(), OnDataReceivedListener, View.OnClickListener {
+class InfoFragment : BaseFragment(), View.OnClickListener {
 
     private var mSymbol: String? = null
     lateinit var viewModel: InfoViewModel
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    companion object {
+        val BUNDLE_SYMBOL_KEY = "SYMBOL"
+
+        fun newInstance(symbol: String): InfoFragment {
+            val infoFragment = InfoFragment()
+            val args = Bundle()
+            args.putString(BUNDLE_SYMBOL_KEY, symbol)
+            infoFragment.arguments = args
+            return infoFragment
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_info, container, false)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(InfoViewModel::class.java)
-        (activity as DetailActivity).setDataReceivedListener(this)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getDataArgument()
         if (userVisibleHint) {
             initData()
         }
     }
 
+    private fun getDataArgument() {
+        mSymbol = arguments?.getString(BUNDLE_SYMBOL_KEY)
+    }
+
     private fun initData() {
         if (viewModel.moreCoinInfo.value == null) { // if -> is it visibile to user
-            viewModel.getCoiInfoBySymbol(this.mSymbol!!)
+            viewModel.getCoiInfoBySymbol(this.mSymbol?:"")
             viewModel.getLiveMoreCoiInfo().observe(this, Observer<MoreCoinInfo> { t: MoreCoinInfo? ->
                 if (t != null) {
                     setView(t)
@@ -127,9 +143,5 @@ class InfoFragment : BaseFragment(), OnDataReceivedListener, View.OnClickListene
             text_message -> onOpenBrower(text_message)
             text_explore -> onOpenBrower(text_explore)
         }
-    }
-
-    override fun onDataReceived(symbol: String) {
-        mSymbol = symbol
     }
 }

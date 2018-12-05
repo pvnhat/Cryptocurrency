@@ -1,4 +1,4 @@
-package com.framgia.cryptocurrency.screen.detail
+package com.framgia.cryptocurrency.screen.detail.coin
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
-class DetailFragment : BaseFragment(), OnDataReceivedListener {
+class DetailFragment : BaseFragment() {
 
     companion object {
 
-        val BUNDLE_SYMBOL_KEY = "SYMBOL"
+        const val BUNDLE_SYMBOL_KEY = "SYMBOL"
 
         fun newInstance(symbol: String): DetailFragment {
             val detailFragment = DetailFragment()
@@ -34,26 +34,31 @@ class DetailFragment : BaseFragment(), OnDataReceivedListener {
     }
 
     private var mSymbol: String? = null
-    lateinit var viewModel: DetailViewModel
+    private lateinit var viewModel: DetailViewModel
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
         viewModel = ViewModelProviders.of(this, this.viewModelFactory).get(DetailViewModel::class.java)
-        val mActivity = activity as DetailActivity
-        mActivity.setDataReceivedListener(this)
         return view
+    }
+
+    private fun getDataArgument() {
+        mSymbol = arguments?.getString(BUNDLE_SYMBOL_KEY)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initData()
+        getDataArgument()
+        if (userVisibleHint) {
+            initData()
+        }
     }
 
     private fun initData() {
         if (viewModel.moreCoinDetail.value == null && userVisibleHint) {
-            viewModel.getCoiDetaiBySymbol(this.mSymbol!!)
+            viewModel.getCoiDetaiBySymbol(this.mSymbol ?: "")
             viewModel.moreCoinDetail.observe(this, Observer<MoreCoin> { t: MoreCoin? ->
                 if (t != null) {
                     setView(t)
@@ -74,9 +79,9 @@ class DetailFragment : BaseFragment(), OnDataReceivedListener {
     private fun setView(moreCoin: MoreCoin) {
         try {
             progress_load.visibility = View.GONE
-            val coinDetailResult = moreCoin.data!!.values.toTypedArray().first()
-            coinDetailResult.apply {
-                text_symbol.text = symbol.toString()
+            val coinDetailResult = moreCoin.data?.values?.toTypedArray()?.first()
+            coinDetailResult?.apply {
+                text_symbol.text = symbol
                 text_name.text = name.toString()
                 text_circulating.text = circulatingSupply.toString()
                 text_total.text = totalSupply.toString()
@@ -119,9 +124,5 @@ class DetailFragment : BaseFragment(), OnDataReceivedListener {
         } else {
             textView.text = value.toString()
         }
-    }
-
-    override fun onDataReceived(symbol: String) {
-        mSymbol = symbol
     }
 }

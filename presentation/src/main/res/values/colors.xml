@@ -12,4 +12,5 @@
     <color name="color_cyan_ancent_200">#00ffee</color>
     <color name="color_blue_400">#00b0ff</color>
     <color name="color_amber_700">#ffa000</color>
+    <color name="color_grey_500">#b1b1b1</color>
 </resources>

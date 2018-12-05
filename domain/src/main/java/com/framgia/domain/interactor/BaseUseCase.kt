@@ -26,7 +26,7 @@ abstract class BaseUseCase<T, Params>() {
     addDisposable(observable.subscribeWith(observer))
   }
 
-  fun addDisposable(disposable: Disposable) {
+  private fun addDisposable(disposable: Disposable) {
     mCompositeDisposable.add(disposable)
   }
 
@@ -35,6 +35,4 @@ abstract class BaseUseCase<T, Params>() {
       mCompositeDisposable.dispose()
     }
   }
-
-
 }

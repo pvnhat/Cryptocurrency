@@ -16,14 +16,18 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".9"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            >
 
             <TextView
                 android:id="@+id/text_dollar"
@@ -32,7 +36,8 @@
                 android:text="@string/text_dolar"
                 android:textColor="@color/color_ampber_700"
                 android:textSize="@dimen/sp_30"
-                app:layout_constraintRight_toLeftOf="@+id/text_price" />
+                app:layout_constraintRight_toLeftOf="@+id/text_price"
+                />
 
             <TextView
                 android:id="@+id/text_price"
@@ -44,7 +49,8 @@
                 android:textColor="@color/color_ampber_700"
                 android:textSize="@dimen/sp_30"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                />
 
             <TextView
                 android:id="@+id/text_usd"
@@ -55,7 +61,8 @@
                 android:textColor="@color/color_ampber_700"
                 android:textSize="@dimen/sp_20"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_price" />
+                app:layout_constraintTop_toBottomOf="@+id/text_price"
+                />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/layout_symbol"
@@ -64,7 +71,8 @@
                 android:background="@color/color_blue_200"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/text_usd">
+                app:layout_constraintTop_toBottomOf="@+id/text_usd"
+                >
 
                 <TextView
                     android:id="@+id/text_symbol_text"
@@ -75,7 +83,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_symbol"
@@ -85,7 +94,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -94,7 +104,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_symbol">
+                app:layout_constraintTop_toBottomOf="@+id/layout_symbol"
+                >
 
                 <TextView
                     android:id="@+id/text_name_text"
@@ -105,7 +116,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_name"
@@ -115,7 +127,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -125,7 +138,8 @@
                 android:background="@color/color_blue_200"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_name">
+                app:layout_constraintTop_toBottomOf="@+id/layout_name"
+                >
 
                 <TextView
                     android:id="@+id/text_circulating_text"
@@ -136,7 +150,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_circulating"
@@ -146,7 +161,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -155,7 +171,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_circulating">
+                app:layout_constraintTop_toBottomOf="@+id/layout_circulating"
+                >
 
                 <TextView
                     android:id="@+id/text_total_text"
@@ -166,7 +183,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_total"
@@ -176,7 +194,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -186,7 +205,8 @@
                 android:background="@color/color_blue_200"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/latout_total">
+                app:layout_constraintTop_toBottomOf="@+id/latout_total"
+                >
 
                 <TextView
                     android:id="@+id/text_max_text"
@@ -197,7 +217,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_max"
@@ -207,7 +228,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -216,7 +238,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_max">
+                app:layout_constraintTop_toBottomOf="@+id/layout_max"
+                >
 
                 <TextView
                     android:id="@+id/text_rank_text"
@@ -227,7 +250,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_rank"
@@ -237,7 +261,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -247,7 +272,8 @@
                 android:background="@color/color_blue_200"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_rank">
+                app:layout_constraintTop_toBottomOf="@+id/layout_rank"
+                >
 
                 <TextView
                     android:id="@+id/text_price_text"
@@ -258,7 +284,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_price2"
@@ -268,7 +295,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -277,7 +305,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_price">
+                app:layout_constraintTop_toBottomOf="@+id/layout_price"
+                >
 
                 <TextView
                     android:id="@+id/text_volume_text"
@@ -288,7 +317,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_volume"
@@ -298,7 +328,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -308,7 +339,8 @@
                 android:background="@color/color_blue_200"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_volume_24">
+                app:layout_constraintTop_toBottomOf="@+id/layout_volume_24"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -318,7 +350,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_change_1h"
@@ -329,7 +362,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="italic"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -338,7 +372,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_1h">
+                app:layout_constraintTop_toBottomOf="@+id/layout_1h"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -348,7 +383,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_change_24h"
@@ -359,7 +395,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="italic"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -369,7 +406,8 @@
                 android:background="@color/color_blue_200"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_24h">
+                app:layout_constraintTop_toBottomOf="@+id/layout_24h"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -379,7 +417,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_change_7d"
@@ -390,7 +429,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="italic"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -399,7 +439,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_7d">
+                app:layout_constraintTop_toBottomOf="@+id/layout_7d"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -409,7 +450,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_marketcap"
@@ -419,7 +461,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -429,7 +472,8 @@
                 android:background="@color/color_blue_200"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
-                app:layout_constraintTop_toBottomOf="@+id/layout_marketcap">
+                app:layout_constraintTop_toBottomOf="@+id/layout_marketcap"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -439,7 +483,8 @@
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/text_last_update"
@@ -449,7 +494,8 @@
                     android:text="@string/string_test"
                     android:textColor="@color/color_white_100"
                     android:textSize="@dimen/sp_18"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
