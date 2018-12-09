@@ -7,9 +7,10 @@ import com.framgia.data.entity.model.MoreCoinInfoData
 import com.framgia.data.source.CoinDataSource
 import io.reactivex.Observable
 import javax.inject.Inject
+import javax.inject.Named
 
 class CoinRemoteDataSource @Inject constructor(
-    private val mApi: Api) : CoinDataSource.RemoteSource {
+    @Named("provideApi1") private val mApi: Api, @Named("provideApi2") private val mApi2: Api) : CoinDataSource.RemoteSource {
 
   override fun getActiveCoin(startNum: Int): Observable<MoreCoinData> {
     return mApi.getActiveCoin(startNum)
@@ -20,7 +21,7 @@ class CoinRemoteDataSource @Inject constructor(
   }
 
   override fun getInfoCoin(symbol: String): Observable<MoreCoinInfoData> {
-    return mApi.getInfoCoin(symbol)
+    return mApi2.getInfoCoin(symbol)
   }
 
   override fun getCoinDetail(symbol: String): Observable<MoreCoinData> {

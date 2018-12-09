@@ -2,22 +2,26 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/color_blue_grey_900">
+                android:background="@color/color_blue_grey_900"
+                >
 
                 <TextView
                     android:id="@+id/text_date"
@@ -32,7 +36,8 @@
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
                 <ProgressBar
                     android:id="@+id/progress_load"
@@ -42,7 +47,20 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_connect_fail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connect_to_server_fail_check_connection"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_coin_list"
@@ -51,7 +69,8 @@
                     android:background="@color/color_blue_grey_900"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@+id/progress_load_more"
-                    app:layout_constraintTop_toBottomOf="@id/text_date" />
+                    app:layout_constraintTop_toBottomOf="@id/text_date"
+                    />
 
                 <ProgressBar
                     android:id="@+id/progress_load_more"
@@ -77,7 +96,8 @@
             app:headerLayout="@layout/nav_header_main"
             app:itemIconTint="@color/color_amber_700"
             app:itemTextColor="@color/color_ampber_700"
-            app:menu="@menu/activity_main_drawer" />
+            app:menu="@menu/activity_main_drawer"
+            />
 
     </android.support.v4.widget.DrawerLayout>
 </android.support.constraint.ConstraintLayout>

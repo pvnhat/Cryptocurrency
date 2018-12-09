@@ -7,6 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 abstract class BaseUseCase<T, Params>() {
@@ -22,7 +23,7 @@ abstract class BaseUseCase<T, Params>() {
   fun execute(observer: DisposableObserver<T>, params: Params) {
     val observable: Observable<T> = this.buildUseCaseObservable(params).subscribeOn(
         Schedulers.from(mThreadExecutor))
-        .observeOn(mPostExecutorThread.getScheduler())
+        .observeOn(mPostExecutorThread.getScheduler()).timeout(10000, TimeUnit.MILLISECONDS)
     addDisposable(observable.subscribeWith(observer))
   }
 
