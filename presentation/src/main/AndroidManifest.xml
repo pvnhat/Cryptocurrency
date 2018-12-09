@@ -22,6 +22,7 @@
         <activity android:name=".screen.detail.DetailActivity"/>
         <activity
             android:name=".screen.splash.SplashActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

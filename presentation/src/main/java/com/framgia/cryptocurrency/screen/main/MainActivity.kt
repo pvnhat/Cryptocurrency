@@ -153,9 +153,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           setView(t)
         }
       })
+      viewModel.isConnectable.observe(this, Observer<Boolean> { t: Boolean? ->
+        if (t == false) {
+          setUnconnectedView()
+        }
+      })
     } else {
       setView(viewModel.moreCoinDetail.value!!)
     }
+  }
+
+  private fun setUnconnectedView() {
+    progress_load.visibility = View.GONE
+    tv_connect_fail.visibility = View.VISIBLE
   }
 
   private fun setView(moreCoinDetail: MoreCoinDetail) {
@@ -169,10 +179,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
   private fun onLoadDataToList(moreCoinDetail: MoreCoinDetail) {
     if (mStartNum == Const.NUM_20) {
-      mListCoinAdapter?.onUpdateAdapter(moreCoinDetail.listCoin as MutableList<CoinDetailResult>)
+      mListCoinAdapter.onUpdateAdapter(moreCoinDetail.listCoin as MutableList<CoinDetailResult>)
 
     } else {
-      mListCoinAdapter?.onLoadMore(moreCoinDetail.listCoin as MutableList<CoinDetailResult>)
+      mListCoinAdapter.onLoadMore(moreCoinDetail.listCoin as MutableList<CoinDetailResult>)
     }
   }
 

@@ -48,4 +48,5 @@
     <string name="_7_days">7 days</string>
     <string name="_24_hours">24 hours</string>
     <string name="splash_screen">Splash screen</string>
+    <string name="connect_to_server_fail_check_connection">Connect to server fail. Check connection!</string>
 </resources>
